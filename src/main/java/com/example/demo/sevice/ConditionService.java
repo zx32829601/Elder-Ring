@@ -32,8 +32,8 @@ public class ConditionService {
 
     }
     private int notify_frequency;
-    String state = "normal";
-    String msg="your monitor target have condition";
+   private String state = "normal";
+    private String msg="your monitor target have condition";
     //createCondition
     public Condition createCondition(ConditionDTO request,String token) throws FirebaseMessagingException {
         if (request.getHeartrhythm() < 60 || request.getHeartrhythm() >= 100) {

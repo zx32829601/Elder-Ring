@@ -76,7 +76,7 @@ public class ConditionController {
         Optional<Elder> elder_data = elderrepository.findById(id);
         List<Condition> condition_data;
         if (elder_data.isPresent()) {
-            condition_data = conditionRepository.findFirst2ByElder(elder_data.get());
+            condition_data = conditionRepository.findFirst2ByElder(id);
 
         } else {
             condition_data = new ArrayList<Condition>();
