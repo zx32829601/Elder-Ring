@@ -22,7 +22,7 @@ public interface ConditionRepository extends JpaRepository<Condition, Long> {
 
     List<Condition> findFirst10ByElder(Elder elder);
 
-    @Query(value = "select * from condition_table  where  elder_id = :elderId ORDER BY time_stamp desc limit 2", nativeQuery = true)
+    @Query(value = "select * from condition_table  where  elder_id = :elder ORDER BY time_stamp desc limit 2", nativeQuery = true)
     List<Condition> findFirst2ByElder(long elder);
 
     @Query(value = "select * from condition_table  where (time_stamp between :data and :after) and elder_id = :elderId", nativeQuery = true)
