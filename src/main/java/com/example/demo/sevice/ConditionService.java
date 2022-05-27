@@ -35,18 +35,18 @@ public class ConditionService {
    private String state = "normal";
     private String msg="your monitor target have condition";
     //createCondition
-    public Condition createCondition(ConditionDTO request,String token) throws FirebaseMessagingException {
+    public Condition createCondition(ConditionDTO request)  {
         if (request.getHeartrhythm() < 60 || request.getHeartrhythm() >= 100) {
             change_state("abnormal");
             Note note=new Note(msg,state+request.getHeartrhythm());
-            firebaseMessagingService.sendNotification(note,token);
+//            firebaseMessagingService.sendNotification(note,token);
 
             notify_frequency = 10;
         } else if (notify_frequency != 0) {
             change_state("normal but have precondition");
             notify_frequency -= 1;
             Note note=new Note(msg,state+request.getHeartrhythm());
-            firebaseMessagingService.sendNotification(note,token);
+//            firebaseMessagingService.sendNotification(note,token);
         }else {
             change_state("normal");
         }

@@ -32,9 +32,8 @@ public class ConditionController {
     ConditionService conditionService;
 
     @PostMapping("/create")
-    public ResponseEntity<Condition> createcondition(@RequestBody ConditionDTO conditionDTO,
-                                                     @RequestParam String token) throws FirebaseMessagingException {
-        Condition condition = conditionService.createCondition(conditionDTO,token);
+    public ResponseEntity<Condition> createcondition(@RequestBody ConditionDTO conditionDTO) {
+        Condition condition = conditionService.createCondition(conditionDTO);
         return new ResponseEntity<>(condition, HttpStatus.OK);
     }
 
