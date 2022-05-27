@@ -5,11 +5,9 @@ import com.example.demo.Entity.ConditionDTO;
 import com.example.demo.Entity.ConditionDTO2;
 import com.example.demo.Entity.Elder;
 import com.example.demo.repository.ConditionRepository;
-import com.example.demo.repository.Elderrepository;
+import com.example.demo.repository.ElderRepository;
 import com.example.demo.sevice.ConditionService;
-import com.google.firebase.FirebaseException;
 import com.google.firebase.messaging.FirebaseMessagingException;
-import com.google.firebase.messaging.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,13 +24,13 @@ public class ConditionController {
     ConditionRepository conditionRepository;
 
     @Autowired
-    Elderrepository elderrepository;
+    ElderRepository elderrepository;
 
     @Autowired
     ConditionService conditionService;
 
     @PostMapping("/create")
-    public ResponseEntity<Condition> createcondition(@RequestBody ConditionDTO conditionDTO) {
+    public ResponseEntity<Condition> createcondition(@RequestBody ConditionDTO conditionDTO) throws FirebaseMessagingException {
         Condition condition = conditionService.createCondition(conditionDTO);
         return new ResponseEntity<>(condition, HttpStatus.OK);
     }

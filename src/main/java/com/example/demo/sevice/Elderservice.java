@@ -4,7 +4,7 @@ package com.example.demo.sevice;
 import com.example.demo.Entity.Elder;
 import com.example.demo.Entity.ElderDTO;
 import com.example.demo.Entity.Guardian;
-import com.example.demo.repository.Elderrepository;
+import com.example.demo.repository.ElderRepository;
 import com.example.demo.repository.GuardianRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.util.Optional;
 public class Elderservice {
 
     @Autowired
-    private Elderrepository elderrepository;
+    private ElderRepository elderrepository;
 
     @Autowired
     private GuardianRepository guardianRepository;

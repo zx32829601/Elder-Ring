@@ -2,7 +2,7 @@ package com.example.demo.Controller;
 
 import com.example.demo.Entity.Elder;
 import com.example.demo.Entity.ElderDTO;
-import com.example.demo.repository.Elderrepository;
+import com.example.demo.repository.ElderRepository;
 import com.example.demo.repository.GuardianRepository;
 import com.example.demo.sevice.Elderservice;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.Optional;
 @RequestMapping("/Elder")
 public class ElderController {
     @Autowired
-    Elderrepository elderrepository;
+    ElderRepository elderrepository;
     @Autowired
     GuardianRepository guardianRepository;
 

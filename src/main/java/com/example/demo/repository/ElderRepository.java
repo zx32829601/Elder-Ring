@@ -4,8 +4,11 @@ import com.example.demo.Entity.Elder;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * @author zx328
+ */
 @Repository
-public interface Elderrepository extends JpaRepository<Elder, Long> {
+public interface ElderRepository extends JpaRepository<Elder, Long> {
     
 
 }

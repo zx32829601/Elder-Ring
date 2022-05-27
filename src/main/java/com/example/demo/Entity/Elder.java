@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Builder
 @Table(name = "Elder")
 public class Elder {

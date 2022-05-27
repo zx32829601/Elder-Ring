@@ -1,14 +1,11 @@
 package com.example.demo.sevice;
 
-import com.example.demo.Entity.Condition;
-import com.example.demo.Entity.ConditionDTO;
-import com.example.demo.Entity.Elder;
-import com.example.demo.Entity.Note;
+import com.example.demo.Entity.*;
 import com.example.demo.repository.ConditionRepository;
-import com.example.demo.repository.Elderrepository;
+import com.example.demo.repository.ElderRepository;
+import com.example.demo.repository.GuardianRepository;
+
 import com.google.firebase.messaging.FirebaseMessagingException;
-import com.google.firebase.messaging.Message;
-import com.google.firebase.messaging.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,15 +15,19 @@ import java.util.Optional;
 
 @Service
 public class ConditionService {
-
+    Note note=new Note();
 
     @Autowired
     private ConditionRepository conditionRepository;
 
     @Autowired
-    private Elderrepository elderrepository;
+    private ElderRepository elderrepository;
     @Autowired
     private FirebaseMessagingService firebaseMessagingService;
+    @Autowired
+    private GuardianRepository guardianRepository;
+
+
     public void change_state(String st){
         state=st;
 
@@ -35,23 +36,35 @@ public class ConditionService {
    private String state = "normal";
     private String msg="your monitor target have condition";
     //createCondition
-    public Condition createCondition(ConditionDTO request)  {
+    public Condition createCondition(ConditionDTO request) throws FirebaseMessagingException {
         if (request.getHeartrhythm() < 60 || request.getHeartrhythm() >= 100) {
             change_state("abnormal");
-            Note note=new Note(msg,state+request.getHeartrhythm());
-//            firebaseMessagingService.sendNotification(note,token);
+            note.setSubject(msg);
+            note.setContent(state+"heart rhythm is"+request.getHeartrhythm());
+
+
+
+
 
             notify_frequency = 10;
         } else if (notify_frequency != 0) {
             change_state("normal but have precondition");
             notify_frequency -= 1;
-            Note note=new Note(msg,state+request.getHeartrhythm());
-//            firebaseMessagingService.sendNotification(note,token);
+            note.setSubject(msg);
+            note.setContent(state+"heart rhythm is"+request.getHeartrhythm());
         }else {
             change_state("normal");
         }
+
+
+
         Long elderId = request.getElderID();
         Optional<Elder> _elder = elderrepository.findById(elderId);
+        if(notify_frequency!=0&&
+                guardianRepository.findById(_elder.get().getGuardian().getId()).get().getDevice_code()!=null){
+            firebaseMessagingService.sendNotification(note,guardianRepository.findById(_elder.get().getGuardian().getId()).get().getDevice_code());
+
+        }
         Condition condition=new Condition(request.getHeartrhythm(),
                 request.getBloody_oxy(), request.getLonggps(), request.getLatigps(), state, _elder.get());
         return conditionRepository.save(condition);

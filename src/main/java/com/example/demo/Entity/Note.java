@@ -1,9 +1,6 @@
 package com.example.demo.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Map;
 
@@ -11,9 +8,11 @@ import java.util.Map;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Note {
     private String subject;
     private String content;
+
 
 
 }

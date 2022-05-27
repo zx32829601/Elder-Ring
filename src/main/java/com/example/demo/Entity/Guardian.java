@@ -25,6 +25,9 @@ public class Guardian {
     @Column(name = "telephone_number")
     private String telephone_number;
 
+    @Column(name = "Device_code")
+    private String device_code;
+
 
     public Guardian(String name, String telephone_number) {
         this.name = name;

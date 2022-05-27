@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 
+import com.example.demo.Entity.DeviceDTO;
 import com.example.demo.Entity.Guardian;
 import com.example.demo.Entity.GuardianDTO;
 import com.example.demo.repository.GuardianRepository;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.RegEx;
 import java.util.Optional;
 
 
@@ -37,5 +39,14 @@ public class GuardianController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+    @PostMapping("/create/device")
+    public ResponseEntity<Guardian> create_device(@RequestBody DeviceDTO deviceDTO){
+        Optional<Guardian> guardian_data=guardianRepository.findById(deviceDTO.getGuardian_id());
+        if(guardian_data.isPresent()){
+            guardian_data.get().setDevice_code(deviceDTO.getDevice_code());
+            guardianRepository.save(guardian_data.get());
+        }
+        return new ResponseEntity<>(guardian_data.get(), HttpStatus.OK);
     }
 }
