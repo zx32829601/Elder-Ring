@@ -63,7 +63,7 @@ public class ConditionService {
 
         Condition condition=new Condition(request.getHeartrhythm(),
                 request.getBloody_oxy(), request.getLonggps(), request.getLatigps(), state, _elder.get());
-        note.getData().put("key1",condition.getId());
+        note.getData().put("key1",condition.getId().toString());
         if(notify_frequency!=0&&
                 guardianRepository.findById(_elder.get().getGuardian().getId()).get().getDevice_code()!=null){
             firebaseMessagingService.sendNotification(note,guardianRepository.findById(_elder.get().getGuardian().getId()).get().getDevice_code());
