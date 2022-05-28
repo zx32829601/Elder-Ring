@@ -28,7 +28,7 @@ public class FirebaseMessagingService {
         Message message = Message
                 .builder()
                 .setToken(token)
-                .setNotification(notification)
+                .setNotification(notification).putAllData(note.getData())
                 .build();
 
         return firebaseMessaging.send(message);
