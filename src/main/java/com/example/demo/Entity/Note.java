@@ -12,6 +12,8 @@ import java.util.Map;
 public class Note {
     private String subject;
     private String content;
+    private Map<String, Long> data;
+    private String image;
 
 
 

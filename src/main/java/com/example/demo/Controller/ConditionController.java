@@ -43,7 +43,7 @@ public class ConditionController {
 
     @PutMapping("/accept/{id}")
     public ResponseEntity<Condition> changecondition(@PathVariable("id") long id) {
-        Condition condition = conditionService.changenotify(id);
+        Condition condition = conditionService.update_notify(id);
 
         return new ResponseEntity<>(condition, HttpStatus.OK);
     }

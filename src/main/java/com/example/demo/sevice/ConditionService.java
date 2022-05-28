@@ -41,32 +41,34 @@ public class ConditionService {
             change_state("abnormal");
             note.setSubject(msg);
             note.setContent(state+"heart rhythm is"+request.getHeartrhythm());
-
-
-
-
-
             notify_frequency = 10;
+
+
+
         } else if (notify_frequency != 0) {
             change_state("normal but have precondition");
             notify_frequency -= 1;
             note.setSubject(msg);
             note.setContent(state+"heart rhythm is"+request.getHeartrhythm());
+
         }else {
             change_state("normal");
         }
 
 
-
         Long elderId = request.getElderID();
         Optional<Elder> _elder = elderrepository.findById(elderId);
+
+
+
+        Condition condition=new Condition(request.getHeartrhythm(),
+                request.getBloody_oxy(), request.getLonggps(), request.getLatigps(), state, _elder.get());
+        note.getData().put("key1",condition.getId());
         if(notify_frequency!=0&&
                 guardianRepository.findById(_elder.get().getGuardian().getId()).get().getDevice_code()!=null){
             firebaseMessagingService.sendNotification(note,guardianRepository.findById(_elder.get().getGuardian().getId()).get().getDevice_code());
 
         }
-        Condition condition=new Condition(request.getHeartrhythm(),
-                request.getBloody_oxy(), request.getLonggps(), request.getLatigps(), state, _elder.get());
         return conditionRepository.save(condition);
 
     }
@@ -83,7 +85,7 @@ public class ConditionService {
         return condition_data;
     }
 
-    public Condition changenotify(long id) {
+    public Condition update_notify(Long id) {
         Optional<Condition> condition = conditionRepository.findById(id);
         condition.get().setNotify_accept(true);
         notify_frequency = 0;
