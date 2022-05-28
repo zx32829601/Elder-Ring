@@ -40,13 +40,12 @@ public class GuardianController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @PostMapping("/create/device")
+    @PatchMapping("/create/device")
     public ResponseEntity<Guardian> create_device(@RequestBody DeviceDTO deviceDTO){
         Optional<Guardian> guardian_data=guardianRepository.findById(deviceDTO.getGuardian_id());
-        if(guardian_data.isPresent()){
+
             guardian_data.get().setDevice_code(deviceDTO.getDevice_code());
             guardianRepository.save(guardian_data.get());
-        }
         return new ResponseEntity<>(guardian_data.get(), HttpStatus.OK);
     }
 }
