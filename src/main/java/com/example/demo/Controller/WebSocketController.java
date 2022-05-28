@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class WebSocketController {
     @GetMapping(value = "/pushone")
     public void pushone() {
-        WebSocketService.sendMessage("badao", "Welcome to FKT Chatroom!!");
+        WebSocketService.sendMessage("badao", "Welcome to  Chatroom!!");
 
     }
 }
