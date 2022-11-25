@@ -27,6 +27,7 @@ public class ConditionService {
     @Autowired
     private GuardianRepository guardianRepository;
 
+    private  int StayTime;
 
     public void change_state(String st){
         state=st;
@@ -104,6 +105,28 @@ public class ConditionService {
         }
         return condition_data;
     }
+    //以Elder_ID查詢最新的兩個Condition
+    public List<Condition> get_top2Condition(long id){
+        Optional<Elder> elder_data = elderrepository.findById(id);
+        Condition condition_data ;
+        if (elder_data.isPresent()) {
+            condition_data = (Condition) conditionRepository.findFirst2ByElder(id);
+        } else {
+            condition_data = new Condition();
+        }
+        return (List<Condition>) condition_data;
+    }
 
+
+    //傳入兩格condition並累計時間，再計算兩個經緯度如差異相加超過0.005則判定為不同位置，時間重置。
+    public int PositionTime(List<Condition> condition_data){
+        Condition one = condition_data.get(0);
+        Condition two = condition_data.get(1);
+        StayTime++;//應該加入Condition_Table,程式碼也要改!
+        if((Math.abs(one.getLatigps() - two.getLatigps()) + Math.abs(one.getLonggps() - two.getLonggps())) >= 0.005) {
+            StayTime = 0;
+        }
+        return StayTime;
+    }
 
 }
