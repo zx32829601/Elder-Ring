@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @Repository
-public interface ConditionRepository extends JpaRepository<Condition, Long> {
+public interface ConditionRepository extends JpaRepository<Condition, Long>{
 
 
     List<Condition> findByElder(Elder elder);

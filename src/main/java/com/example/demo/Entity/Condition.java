@@ -43,6 +43,9 @@ public class Condition {
     @Column(columnDefinition = "boolean default false")
     private boolean notify_accept;
 
+    @Column(name = "staytime")
+    private int staytime;
+
 
     @OneToOne
     @JoinColumn(name = "elder_id")
