@@ -21,8 +21,8 @@ public class Elderservice {
     private GuardianRepository guardianRepository;
 
     public Elder createElder(ElderDTO request) {
-        Long guardianId = request.getGuardianID();
-        Optional<Guardian> _guardian = guardianRepository.findById(guardianId);
+        String account=request.getGuardian_account();
+        Optional<Guardian> _guardian = Optional.ofNullable(guardianRepository.findByaccount(account));
         return elderrepository.save(new Elder(request.getID_number(), request.getAge(), request.getName(),
                 request.getBirth(), request.getPrecondition(), request.getAddress(), _guardian.get()));
     }

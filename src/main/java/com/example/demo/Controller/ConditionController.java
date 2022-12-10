@@ -1,9 +1,6 @@
 package com.example.demo.Controller;
 
-import com.example.demo.Entity.Condition;
-import com.example.demo.Entity.ConditionDTO;
-import com.example.demo.Entity.ConditionDTO2;
-import com.example.demo.Entity.Elder;
+import com.example.demo.Entity.*;
 import com.example.demo.repository.ConditionRepository;
 import com.example.demo.repository.ElderRepository;
 import com.example.demo.sevice.ConditionService;
@@ -47,6 +44,8 @@ public class ConditionController {
 
         return new ResponseEntity<>(condition, HttpStatus.OK);
     }
+
+
 
     @GetMapping("/gettop/{id}")
     public Condition get_lastcondition(@PathVariable("id") long id) {

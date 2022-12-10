@@ -48,7 +48,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 // 文档标题
-                .title("Garbage Classifier Backend")
+                .title("Wristband Backend")
                 // 文档描述
                 .description("Api Operation Socket")
                 // 文档版本

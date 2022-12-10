@@ -12,7 +12,7 @@ public class ElderDTO {
     private int age;
     private String name;
     private String precondition;
-    private Long guardianID;
+    private String  guardian_account;
     private String birth;
     private String address;
 }

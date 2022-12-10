@@ -14,13 +14,14 @@ import javax.persistence.*;
 @Table(name = "Guardian")
 public class Guardian {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "account")
+    private String account;
+
+    @Column(name ="password")
+    private String password;
 
     @Column(name = "name")
     private String name;
-
 
     @Column(name = "telephone_number")
     private String telephone_number;
@@ -29,9 +30,13 @@ public class Guardian {
     private String device_code;
 
 
-    public Guardian(String name, String telephone_number) {
+
+
+    public Guardian(String account,String password,String name, String telephone_number) {
         this.name = name;
         this.telephone_number = telephone_number;
+        this.account= account;
+        this.password=password;
 
     }
 }

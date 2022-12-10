@@ -36,6 +36,8 @@ public class ConditionService {
     private int notify_frequency;
    private String state = "normal";
     private String msg="your monitor target have condition";
+
+
     //createCondition
     public Condition createCondition(ConditionDTO request) throws FirebaseMessagingException {
         if (request.getHeartrhythm() < 60 || request.getHeartrhythm() >= 100) {
@@ -65,12 +67,12 @@ public class ConditionService {
         Condition condition=new Condition(request.getHeartrhythm(),
                 request.getBloody_oxy(), request.getLonggps(), request.getLatigps(), state, _elder.get());
         conditionRepository.save(condition);
+        Guardian guardian=_elder.get().getGuardian();
         note.getData().put("key1",conditionRepository.findTopByOrderByIdDesc().getId().toString());
-        if(notify_frequency!=0&&
-                guardianRepository.findById(_elder.get().getGuardian().getId()).get().getDevice_code()!=null){
-            firebaseMessagingService.sendNotification(note,guardianRepository.findById(_elder.get().getGuardian().getId()).get().getDevice_code());
-
+        if(notify_frequency!=0&& guardian!=null){
+            firebaseMessagingService.sendNotification(note,guardian.getDevice_code());
         }
+
         return condition;
 
     }

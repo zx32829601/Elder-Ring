@@ -37,7 +37,7 @@ public class Elder {
     private String address;
 
     @OneToOne
-    @JoinColumn(name = "guardian_id")
+    @JoinColumn(name = "guardian_account")
     private Guardian guardian;
 
     public Elder(String in, int age, String name, String bi, String precondition, String add, Guardian guardian) {
