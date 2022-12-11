@@ -8,6 +8,6 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 public class DeviceDTO {
-    private Long guardian_id;
+    private String guardian_account;
     private String device_code;
 }

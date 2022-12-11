@@ -56,9 +56,9 @@ public class SwaggerConfig {
                 // 设置许可声明信息
                 .license("MIT LICENSE 2.0")
                 // 设置许可证URL地址
-                .licenseUrl("https://github.com/fan9704")
+                .licenseUrl("https://github.com/zx32829601")
                 // 设置管理该API人员的联系信息
-                .contact(new Contact("FKT", "https://github.com/fan9704", "cxz123499@gmail.com"))
+                .contact(new Contact("NICK", "https://github.com/zx32829601", "zx32829601@gmail.com"))
                 .build();
     }
 

@@ -32,11 +32,11 @@ public class GuardianController {
 
     }
 
-    @GetMapping("/verify")
-    public ResponseEntity<Guardian> verify_guardian(@RequestBody GuardianAccountDTO guardianAccountDTO){
-        Optional<Guardian> guardian_data = Optional.ofNullable(guardianRepository.findByaccount(guardianAccountDTO.getAccount()));
+    @GetMapping("/verify/{account}/{password}")
+    public ResponseEntity<Guardian> verify_guardian(@PathVariable("account")String account,@PathVariable("password") String password){
+        Optional<Guardian> guardian_data = Optional.ofNullable(guardianRepository.findByaccount(account));
         if (guardian_data.isPresent()) {
-            if(guardianservice.verifyaccount(guardian_data.get(),guardianAccountDTO)){
+            if(guardianservice.verifyaccount(guardian_data.get(),password)){
                 return new ResponseEntity<>(guardian_data.get(),HttpStatus.OK);
             }else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -70,10 +70,10 @@ public class GuardianController {
     }
     @PatchMapping("/create/device")
     public ResponseEntity<Guardian> create_device(@RequestBody DeviceDTO deviceDTO){
-        Optional<Guardian> guardian_data=guardianRepository.findById(deviceDTO.getGuardian_id());
+        Guardian guardian_data=guardianRepository.findByaccount(deviceDTO.getGuardian_account());
 
-            guardian_data.get().setDevice_code(deviceDTO.getDevice_code());
-            guardianRepository.save(guardian_data.get());
-        return new ResponseEntity<>(guardian_data.get(), HttpStatus.OK);
+            guardian_data.setDevice_code(deviceDTO.getDevice_code());
+            guardianRepository.save(guardian_data);
+        return new ResponseEntity<>(guardian_data, HttpStatus.OK);
     }
 }

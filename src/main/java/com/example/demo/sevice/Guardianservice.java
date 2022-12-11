@@ -23,8 +23,8 @@ public class Guardianservice {
         return guardianRepository.save(new Guardian(request.getAccount(),request.getPassword(),request.getName(), request.getTelephone_number()));
     }
 
-    public boolean verifyaccount(Guardian guardian, GuardianAccountDTO guardianAccountDTO){
-        if(guardian.getPassword().equals(guardianAccountDTO.getPassword())){
+    public boolean verifyaccount(Guardian guardian, String password){
+        if(guardian.getPassword().equals(password)){
             return true;
         }
         else {
