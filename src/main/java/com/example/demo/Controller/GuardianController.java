@@ -27,20 +27,23 @@ public class GuardianController {
 
     @PostMapping("/create")
     public ResponseEntity<Guardian> create_guardian(@RequestBody GuardianDTO guardianDTO) {
-        Guardian guardian = guardianservice.createGuardian(guardianDTO);
-        return new ResponseEntity<>(guardian, HttpStatus.OK);
+        Optional<Guardian> guardian_data = Optional.ofNullable(guardianRepository.findByaccount(guardianDTO.getAccount()));
+        if (guardian_data.isPresent()) {
+
+            return  new ResponseEntity<>(null,HttpStatus.ALREADY_REPORTED);
+        }else {
+            Guardian guardian = guardianservice.createGuardian(guardianDTO);
+            return new ResponseEntity<>(guardian, HttpStatus.OK);
+        }
+
 
     }
 
     @GetMapping("/verify/{account}/{password}")
-    public ResponseEntity<Guardian> verify_guardian(@PathVariable("account")String account,@PathVariable("password") String password){
+    public ResponseEntity<Guardian> verify_account(@PathVariable("account")String account,@PathVariable("password") String password){
         Optional<Guardian> guardian_data = Optional.ofNullable(guardianRepository.findByaccount(account));
         if (guardian_data.isPresent()) {
-            if(guardianservice.verifyaccount(guardian_data.get(),password)){
-                return new ResponseEntity<>(guardian_data.get(),HttpStatus.OK);
-            }else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
+            return guardianservice.verifyaccount(guardian_data.get(),password);
 
 
         }else {

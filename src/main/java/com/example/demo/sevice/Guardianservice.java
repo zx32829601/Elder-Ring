@@ -7,6 +7,8 @@ import com.example.demo.Entity.Note;
 import com.example.demo.repository.GuardianRepository;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
@@ -23,12 +25,12 @@ public class Guardianservice {
         return guardianRepository.save(new Guardian(request.getAccount(),request.getPassword(),request.getName(), request.getTelephone_number()));
     }
 
-    public boolean verifyaccount(Guardian guardian, String password){
+    public ResponseEntity<Guardian> verifyaccount(Guardian guardian, String password){
         if(guardian.getPassword().equals(password)){
-            return true;
+            return new ResponseEntity<>(guardian, HttpStatus.OK);
         }
         else {
-            return  false;
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
     }
