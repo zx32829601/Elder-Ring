@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
+import com.example.demo.NotifyHandler;
 
 @Service
-public class Guardianservice {
+public class Guardianservice implements NotifyHandler{
     @Autowired
     private FirebaseMessagingService firebaseMessagingService;
 
@@ -25,7 +25,7 @@ public class Guardianservice {
         return guardianRepository.save(new Guardian(request.getAccount(),request.getPassword(),request.getName(), request.getTelephone_number()));
     }
 
-    public ResponseEntity<Guardian> verifyaccount(Guardian guardian, String password){
+    public ResponseEntity<Guardian> verify_Account(Guardian guardian, String password){
         if(guardian.getPassword().equals(password)){
             return new ResponseEntity<>(guardian, HttpStatus.OK);
         }
@@ -40,5 +40,16 @@ public class Guardianservice {
         note.setContent("!Notice!");
         firebaseMessagingService.sendNotification(note,guardian.getDevice_code());
 
+    }
+
+    @Override
+    public ResponseEntity<Guardian> verify_Account(String account, String password) {
+        Guardian guardian=guardianRepository.findByaccount(account);
+        if(guardian.getPassword().equals(password)){
+            return new ResponseEntity<>(guardian, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

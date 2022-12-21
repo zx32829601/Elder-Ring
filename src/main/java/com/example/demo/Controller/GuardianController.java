@@ -4,6 +4,7 @@ import com.example.demo.Entity.DeviceDTO;
 import com.example.demo.Entity.Guardian;
 import com.example.demo.Entity.GuardianAccountDTO;
 import com.example.demo.Entity.GuardianDTO;
+import com.example.demo.NotifyHandler;
 import com.example.demo.repository.GuardianRepository;
 import com.example.demo.sevice.Guardianservice;
 import com.google.firebase.messaging.FirebaseMessagingException;
@@ -18,7 +19,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/Guardian")
-public class GuardianController {
+public class GuardianController implements NotifyHandler {
     @Autowired
     GuardianRepository guardianRepository;
 
@@ -40,10 +41,10 @@ public class GuardianController {
     }
 
     @GetMapping("/verify/{account}/{password}")
-    public ResponseEntity<Guardian> verify_account(@PathVariable("account")String account,@PathVariable("password") String password){
+    public ResponseEntity<Guardian> verify_Account(@PathVariable("account")String account,@PathVariable("password") String password){
         Optional<Guardian> guardian_data = Optional.ofNullable(guardianRepository.findByaccount(account));
         if (guardian_data.isPresent()) {
-            return guardianservice.verifyaccount(guardian_data.get(),password);
+            return guardianservice.verify_Account(guardian_data.get(),password);
 
 
         }else {
