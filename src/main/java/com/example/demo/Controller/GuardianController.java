@@ -30,7 +30,6 @@ public class GuardianController implements NotifyHandler {
     public ResponseEntity<Guardian> create_guardian(@RequestBody GuardianDTO guardianDTO) {
         Optional<Guardian> guardian_data = Optional.ofNullable(guardianRepository.findByaccount(guardianDTO.getAccount()));
         if (guardian_data.isPresent()) {
-
             return  new ResponseEntity<>(null,HttpStatus.ALREADY_REPORTED);
         }else {
             Guardian guardian = guardianservice.createGuardian(guardianDTO);
@@ -53,7 +52,7 @@ public class GuardianController implements NotifyHandler {
 
     }
 
-    @RequestMapping("/notify/{account}")
+    @GetMapping("/notify/{account}")
     public ResponseEntity<Guardian> notify_guardian(@PathVariable("account") String account) throws FirebaseMessagingException {
         Optional<Guardian> guardian_data = Optional.ofNullable(guardianRepository.findByaccount(account));
         if (guardian_data.isPresent()) {

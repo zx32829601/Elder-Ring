@@ -30,7 +30,7 @@ public class Guardianservice implements NotifyHandler{
             return new ResponseEntity<>(guardian, HttpStatus.OK);
         }
         else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
         }
 
     }
